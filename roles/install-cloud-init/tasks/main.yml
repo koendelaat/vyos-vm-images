@@ -24,6 +24,14 @@
   copy:
     src: "files/apt-proxy.conf"
     dest: "{{ vyos_install_root }}/etc/apt/apt.conf.d/proxy.conf"
+- name: add ca trust
+  become: true
+  copy:
+    src: "files/cisco.crt"
+    dest: "{{ vyos_install_root }}/usr/local/share/ca-certificates/cisco.crt"
+- name: update ca trust
+  become: true
+  command: chroot {{ vyos_install_root }} update-ca-certificates
 - name: apt-get update
   become: true
   command: chroot {{ vyos_install_root }} apt-get update
