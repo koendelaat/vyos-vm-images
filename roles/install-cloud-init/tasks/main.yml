@@ -19,6 +19,11 @@
   copy:
     src: "files/resolv.conf"
     dest: "{{ vyos_install_root }}/etc/resolv.conf"
+- name: add proxy settings to chroot
+  become: true
+  copy:
+    src: "files/apt-proxy.conf"
+    dest: "{{ vyos_install_root }}/etc/apt/apt.conf.d/proxy.conf"
 - name: apt-get update
   become: true
   command: chroot {{ vyos_install_root }} apt-get update
